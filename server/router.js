@@ -3,6 +3,7 @@ const passportService = require('./services/passport.js');
 const passport = require('passport');
 
 let requireAuth = passport.authenticate('jwt', {session: false});
+let requireSignin = passport.authenticate('local', {session: false});
 
 module.exports = function(app) {
 	//test stuff
@@ -12,6 +13,7 @@ module.exports = function(app) {
 	});
 
 	app.post('/signup', Auth.signup);
+	app.post('/signin',requireSignin, Auth.signin);
 	
 
 	// app.get('/signup', function(req,res, next){

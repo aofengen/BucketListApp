@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS, FETCH_POST, DELETE_POST} from './types';
+import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS, FETCH_POST, DELETE_POST,
+				UPDATE_POST} from './types';
 import authReducer from '../reducers/auth_reducer';
 
 const ROOT_URL = "http://localhost:4000"
@@ -18,7 +19,7 @@ export function signinUser({email, password}){
 			//this will put the token in localStorage. It's safe!!
 			localStorage.setItem('token', response.data.token);
 			//this sends us off to the /newitem view
-			browserHistory.push('/newitem');
+			browserHistory.push('/items');
 		})
 		.catch(response => dispatch(authError("Bad login info")));
 	}
@@ -92,6 +93,19 @@ export function deletePost(id) {
 			console.log("Response", response);
 			dispatch({
 				type: DELETE_POST,
+				payload: response
+			});
+			browserHistory.push('/items');
+		});
+	}
+}
+
+export function updatePost(props, id) {
+	return function(dispatch) {
+		axios.put(`${ROOT_URL}/items/${id}`, {props}, config)
+		.then( (response) => {
+			dispatch({
+				type: UPDATE_POST,
 				payload: response
 			});
 			browserHistory.push('/items');

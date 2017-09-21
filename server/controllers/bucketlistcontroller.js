@@ -76,10 +76,10 @@ exports.updateBucketList = function(req, res) {
 			res.status(500, err.message)
 		} else {
 
-			bucketlistUpdate.title = req.body.title;
-			bucketlistUpdate.topic = req.body.topic;
-			bucketlistUpdate.url = req.body.url;
-			bucketlistUpdate.content = req.body.content;
+			bucketlistUpdate.title = req.body.props.title;
+			bucketlistUpdate.topic = req.body.props.topic;
+			bucketlistUpdate.url = req.body.props.url;
+			bucketlistUpdate.content = req.body.props.content;
 
 			bucketlistUpdate.save(function(err, bucketlist) {
 				if (err) {

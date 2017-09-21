@@ -57,7 +57,7 @@ exports.fetchBucketList = function(req,res) {
 }
 
 exports.deleteBucketList = function(req, res) {
-	let specificBucketList= req.params.id;
+	let specificBucketList = req.params.id;
 	BucketList.remove({_id: specificBucketList})
 	.then(
 		function deleteSuccess(data) {
@@ -67,4 +67,26 @@ exports.deleteBucketList = function(req, res) {
 			res.json(500, err.message);
 		}
 	);
+}
+
+exports.updateBucketList = function(req, res) {
+	let specificBucketList = req.params.id;
+	BucketList.findById(specificBucketList, function(err, bucketlistUpdate) {
+		if (err) {
+			res.status(500, err.message)
+		} else {
+
+			bucketlistUpdate.title = req.body.title;
+			bucketlistUpdate.topic = req.body.topic;
+			bucketlistUpdate.url = req.body.url;
+			bucketlistUpdate.content = req.body.content;
+
+			bucketlistUpdate.save(function(err, bucketlist) {
+				if (err) {
+				res.status(500, err.message)
+			}
+			res.send(bucketlist);
+			});
+		};
+	});
 }

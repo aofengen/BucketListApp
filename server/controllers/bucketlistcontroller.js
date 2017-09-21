@@ -31,14 +31,40 @@ exports.addBucketList = function(req, res, next){
 }
 
 exports.fetchBucketLists = function(req, res) {
-		let specificUser = req.user._id;
-		BucketList.find({specificUser: specificUser})
-		.then(
-			function fetchSuccess(data) {
-				res.json(data);
-			},
-			function fetchError(err) {
-				res.send(500, err.message);
-			}
-		);
-	}
+	let specificUser = req.user._id;
+	BucketList.find({specificUser: specificUser})
+	.then(
+		function fetchSuccess(data) {
+			res.json(data);
+		},
+		function fetchError(err) {
+			res.send(500, err.message);
+		}
+	);
+}
+
+exports.fetchBucketList = function(req,res) {
+	let specificBucketList = req.params.id;
+	BucketList.findOne({_id: specificBucketList})
+	.then(
+		function fetchSuccess(data) {
+			res.json(data);
+		},
+		function fetchError(error) {
+			res.json(500, err.message);
+		}
+	);
+}
+
+exports.deleteBucketList = function(req, res) {
+	let specificBucketList= req.params.id;
+	BucketList.remove({_id: specificBucketList})
+	.then(
+		function deleteSuccess(data) {
+			res.json(data);
+		},
+		function deleteError(error) {
+			res.json(500, err.message);
+		}
+	);
+}

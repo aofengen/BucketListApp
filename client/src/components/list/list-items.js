@@ -9,13 +9,7 @@ const config = {
 	headers: {authorization: localStorage.getItem('token')}
 }
 class ListItems extends Component{
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			posts: []
-		}
-	}
+	
 	componentWillMount() {
 		this.props.fetchPosts();
 	}

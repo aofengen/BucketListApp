@@ -5,7 +5,6 @@ import * as actions from '../../actions';
 class Signup extends Component {
 	handleFormSubmit(formProps){
 		//call action creator to sign up the user
-		//we haven't made this yet
 		this.props.signupUser(formProps);
 	}
 	renderAlert(){

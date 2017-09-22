@@ -5,8 +5,8 @@ import {AUTH_USER, UNAUTH_USER, AUTH_ERROR, CREATE_POSTS, FETCH_POSTS, FETCH_POS
 import authReducer from '../reducers/auth_reducer';
 
 const ROOT_URL = "http://localhost:4000"
-const config = {
-	headers: {authorization : localStorage.getItem('token')}
+let config = {
+	headers: {authorization: null}
 }
 
 export function signinUser({email, password}){
@@ -16,8 +16,13 @@ export function signinUser({email, password}){
 			//this only starts if the request was good
 			//We now update the state to indicate authenticated user
 			dispatch({type: AUTH_USER});
+			
+			//resets config variable to current token
+			config.headers.authorization = response.data.token;
+			
 			//this will put the token in localStorage. It's safe!!
-			localStorage.setItem('token', response.data.token);
+			localStorage.setItem('token', config.headers.authorization);
+			
 			//this sends us off to the /newitem view
 			browserHistory.push('/items');
 		})
@@ -38,9 +43,10 @@ export function signupUser({email, password}){
 		axios.post(`${ROOT_URL}/signup`, {email, password})
 		.then(response => {
 			dispatch({type: AUTH_USER});
-
+			//resets config variable to current token
+			config.headers.authorization = response.data.token;
 			//upate the token
-			localStorage.setItem('token', response.data.token);
+			localStorage.setItem('token', config.headers.authorization);
 			browserHistory.push('/newitem');
 		})
 		.catch(response => dispatch(authError(response.data.error)));
@@ -119,6 +125,6 @@ export function updatePost(props, id) {
 
 export function signoutUser(){
 	localStorage.removeItem('token');
-
+	
 	return {type: UNAUTH_USER};
 }

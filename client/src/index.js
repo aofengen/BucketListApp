@@ -15,8 +15,9 @@ import ListItem from './components/list/new-list-item';
 import ListsShow from './components/list/list-items';
 import ListShow from './components/list/list-show';
 import UpdateList from './components/list/update-list-item';
+import {AUTH_USER} from './actions/types';
 
-let createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
 ReactDOM.render(
 	<Provider store={createStoreWithMiddleware(reducers)}>

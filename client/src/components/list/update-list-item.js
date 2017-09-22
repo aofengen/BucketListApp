@@ -39,7 +39,7 @@ class UpdateList extends Component {
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Content</label>
-					<input type="text" rows="8" className="form-control text" {...content} />
+					<textarea type="text" rows="8" className="form-control text" {...content} />
 				</fieldset>
 
 				<button type="submit" className="btn btn-primary">Submit</button>

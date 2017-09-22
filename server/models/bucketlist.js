@@ -21,7 +21,7 @@ let BucketListSchma = new Schema({
 	specificUser: {
 		type: String,
 		default: ""
-	},
+	}
 });
 
 module.exports = mongoose.model('BucketList', BucketListSchma);

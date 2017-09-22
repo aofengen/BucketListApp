@@ -3,8 +3,8 @@ const BucketList = require('./controllers/bucketlistcontroller');
 const passportService = require('./services/passport.js');
 const passport = require('passport');
 
-let requireAuth = passport.authenticate('jwt', {session: false});
-let requireSignin = passport.authenticate('local', {session: false});
+const requireAuth = passport.authenticate('jwt', {session: false});
+const requireSignin = passport.authenticate('local', {session: false});
 
 module.exports = function(app) {
 	//test stuff

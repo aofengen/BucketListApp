@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form';
 import { createPost } from '../../actions/index';
 import { Link } from 'react-router';
 
@@ -29,7 +29,7 @@ class ListItem extends Component {
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Content</label>
-					<input type="text" rows="8" className="form-control text" {...content} />
+					<textarea type="text" rows="8" className="form-control text" {...content} />
 				</fieldset>
 
 				<button type="submit" className="btn btn-primary">Submit</button>
@@ -39,7 +39,11 @@ class ListItem extends Component {
 	}
 }
 
+function mapStateToProps(state) {
+	return { errorMessage: state.auth.error };
+}
+
 export default reduxForm({
 	form: 'PostsNewForm',
 	fields: ['title', 'topic', 'url', 'content']
-}, null, {createPost})(ListItem);
+}, mapStateToProps, {createPost})(ListItem);
